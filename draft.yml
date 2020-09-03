@@ -1,0 +1,28 @@
+models:
+  Ticket:
+    officer_id: id:user
+    issued_at: timestamp
+    reg_no: string:16
+    front_image: binary
+    rear_image: binary
+    dash_image: binary
+    location_image: binary
+    gps_lat: decimal:10,7
+    gps_lon: decimal:10,7
+    dvla_req_sent: boolean default:0
+    first_name: nullable string:20
+    last_name: nullable string:20
+    address1: nullable string:20
+    address2: nullable string:20
+    address3: nullable string:20
+    town: nullable string:20
+    postcode: nullable string:20
+    notice_sent: boolean default:0
+    reminder_sent: boolean default:0
+    client_access_code: nullable string:20
+    payment_made_amt: nullable decimal:3,2
+    payment_made_date: nullable date
+    timestamps: true
+    softDeletes: true
+    relationships:
+      hasOne: User
