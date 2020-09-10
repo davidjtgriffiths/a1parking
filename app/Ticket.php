@@ -74,4 +74,6 @@ class Ticket extends Model
     {
         return $this->belongsTo(\App\User::class);
     }
+
+
 }
