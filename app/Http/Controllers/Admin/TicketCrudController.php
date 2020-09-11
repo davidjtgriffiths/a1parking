@@ -147,7 +147,8 @@ class TicketCrudController extends CrudController
            $this->crud->addClause('whereNull', 'payment_made_date');
          });
 
-
+         $this->crud->denyAccess('delete');
+         $this->crud->denyAccess('show');
     }
 
     /**
@@ -160,7 +161,114 @@ class TicketCrudController extends CrudController
     {
         CRUD::setValidation(TicketRequest::class);
 
-        CRUD::setFromDb(); // fields
+        // CRUD::setFromDb(); // fields
+
+        $this->crud->addField([
+          'name' => 'officer_id', // The db column name
+          'label' => "OID", // Table column heading
+          // 'type' => 'Text'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'issued_at', // The db column name
+          'label' => "Date of Issue", // Table column heading
+          'type' => 'date'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'reg_no', // The db column name
+          'label' => "Registration Number", // Table column heading
+          'type' => 'text'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'dvla_req_sent', // The db column name
+          'label' => "DVLA Request Sent", // Table column heading
+          'type' => 'boolean'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'first_name', // The db column name
+          'label' => "First Name", // Table column heading
+          'type' => 'Text'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'last_name', // The db column name
+          'label' => "Last Name", // Table column heading
+          'type' => 'Text'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'address1', // The db column name
+          'label' => "Address 1", // Table column heading
+          'type' => 'Text'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'address2', // The db column name
+          'label' => "Address 2", // Table column heading
+          'type' => 'Text'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'address3', // The db column name
+          'label' => "Address 3", // Table column heading
+          'type' => 'Text'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'town', // The db column name
+          'label' => "Town", // Table column heading
+          'type' => 'Text'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'postcode', // The db column name
+          'label' => "Postcode", // Table column heading
+          'type' => 'Text'
+        ]);
+
+
+
+
+        $this->crud->addField([
+          'name' => 'notice_sent', // The db column name
+          'label' => "Notice Sent", // Table column heading
+          'type' => 'boolean'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'reminder_sent', // The db column name
+          'label' => "Reminder Sent", // Table column heading
+          'type' => 'boolean'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'payment_made_date', // The db column name
+          'label' => "Payment Date", // Table column heading
+          'type' => 'date'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'payment_made_amt', // The db column name
+          'label' => "Payment Amount", // Table column heading
+          'type' => 'number'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'gps_lat', // The db column name
+          'label' => "GPS Lat", // Table column heading
+          'type' => 'number'
+        ]);
+
+        $this->crud->addField([
+          'name' => 'gps_lon', // The db column name
+          'label' => "GPS Lon", // Table column heading
+          'type' => 'number'
+        ]);
+
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -170,8 +278,38 @@ class TicketCrudController extends CrudController
 
          // base64_image
 $this->crud->addField([
-    'label'        => "Profile Image",
-    'name'         => "image",
+    'label'        => "Front Image",
+    'name'         => "front_image",
+    'filename'     => "null", // set to null if not needed
+    'type'         => 'base64_image',
+    'aspect_ratio' => 0, // set to 0 to allow any aspect ratio
+    'crop'         => true, // set to true to allow cropping, false to disable
+    'src'          => NULL, // null to read straight from DB, otherwise set to model accessor function
+]);
+
+$this->crud->addField([
+    'label'        => "Rear Image",
+    'name'         => "rear_image",
+    'filename'     => "null", // set to null if not needed
+    'type'         => 'base64_image',
+    'aspect_ratio' => 0, // set to 0 to allow any aspect ratio
+    'crop'         => true, // set to true to allow cropping, false to disable
+    'src'          => NULL, // null to read straight from DB, otherwise set to model accessor function
+]);
+
+$this->crud->addField([
+    'label'        => "Dash Image",
+    'name'         => "dash_image",
+    'filename'     => "null", // set to null if not needed
+    'type'         => 'base64_image',
+    'aspect_ratio' => 0, // set to 0 to allow any aspect ratio
+    'crop'         => true, // set to true to allow cropping, false to disable
+    'src'          => NULL, // null to read straight from DB, otherwise set to model accessor function
+]);
+
+$this->crud->addField([
+    'label'        => "Location Image",
+    'name'         => "location_image",
     'filename'     => "null", // set to null if not needed
     'type'         => 'base64_image',
     'aspect_ratio' => 0, // set to 0 to allow any aspect ratio
