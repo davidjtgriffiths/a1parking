@@ -52,11 +52,11 @@ class TicketCrudController extends CrudController
          $this->crud->addColumn([
            'name' => 'officer_id', // The db column name
            'label' => "OID", // Table column heading
-           // 'type' => 'Text'
+           'type' => 'number'
          ]);
 
          $this->crud->addColumn([
-           'name' => 'issued_at', // The db column name
+           'name' => 'created_at', // The db column name
            'label' => "Date of Issue", // Table column heading
            'type' => 'date'
          ]);
@@ -70,7 +70,7 @@ class TicketCrudController extends CrudController
          $this->crud->addColumn([
            'name' => 'last_name', // The db column name
            'label' => "Driver Details", // Table column heading
-           'type' => 'Text'
+           'type' => 'text'
          ]);
 
          $this->crud->addColumn([
@@ -166,11 +166,11 @@ class TicketCrudController extends CrudController
         $this->crud->addField([
           'name' => 'officer_id', // The db column name
           'label' => "OID", // Table column heading
-          // 'type' => 'Text'
+          'type' => 'number'
         ]);
 
         $this->crud->addField([
-          'name' => 'issued_at', // The db column name
+          'name' => 'created_at', // The db column name
           'label' => "Date of Issue", // Table column heading
           'type' => 'date'
         ]);
@@ -190,43 +190,43 @@ class TicketCrudController extends CrudController
         $this->crud->addField([
           'name' => 'first_name', // The db column name
           'label' => "First Name", // Table column heading
-          'type' => 'Text'
+          'type' => 'text'
         ]);
 
         $this->crud->addField([
           'name' => 'last_name', // The db column name
           'label' => "Last Name", // Table column heading
-          'type' => 'Text'
+          'type' => 'text'
         ]);
 
         $this->crud->addField([
           'name' => 'address1', // The db column name
           'label' => "Address 1", // Table column heading
-          'type' => 'Text'
+          'type' => 'text'
         ]);
 
         $this->crud->addField([
           'name' => 'address2', // The db column name
           'label' => "Address 2", // Table column heading
-          'type' => 'Text'
+          'type' => 'text'
         ]);
 
         $this->crud->addField([
           'name' => 'address3', // The db column name
           'label' => "Address 3", // Table column heading
-          'type' => 'Text'
+          'type' => 'text'
         ]);
 
         $this->crud->addField([
           'name' => 'town', // The db column name
           'label' => "Town", // Table column heading
-          'type' => 'Text'
+          'type' => 'text'
         ]);
 
         $this->crud->addField([
           'name' => 'postcode', // The db column name
           'label' => "Postcode", // Table column heading
-          'type' => 'Text'
+          'type' => 'text'
         ]);
 
 
@@ -330,12 +330,9 @@ $this->crud->addField([
         $this->setupCreateOperation();
     }
 
-    public function dvla()
-{
-// show a form that does something
-}
-public function notice()
-{
-// show a form that does something
-}
+    public function issue(Request $request)
+        {
+          Ticket::create($request->all());
+          return redirect()->route('home')->with('success', 'Job Created');
+        }
 }

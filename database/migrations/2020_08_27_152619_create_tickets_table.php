@@ -15,15 +15,15 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('officer_id');
-            $table->timestamp('issued_at');
-            $table->string('reg_no', 16);
-            $table->binary('front_image');
-            $table->binary('rear_image');
-            $table->binary('dash_image');
-            $table->binary('location_image');
-            $table->decimal('gps_lat', 10, 7);
-            $table->decimal('gps_lon', 10, 7);
+            $table->unsignedBigInteger('officer_id')->nullable();;
+            $table->timestamp('issued_at')->nullable();;
+            $table->string('reg_no', 16)->nullable();;
+            $table->binary('front_image')->nullable();;
+            $table->binary('rear_image')->nullable();;
+            $table->binary('dash_image')->nullable();;
+            $table->binary('location_image')->nullable();;
+            $table->decimal('gps_lat', 10, 7)->nullable();;
+            $table->decimal('gps_lon', 10, 7)->nullable();;
             $table->boolean('dvla_req_sent')->default(0);
             $table->string('first_name', 20)->nullable();
             $table->string('last_name', 20)->nullable();
