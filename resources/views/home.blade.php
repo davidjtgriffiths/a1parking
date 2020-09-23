@@ -31,10 +31,10 @@
                     </div>
 
                     <canvas id="canvas">
-                    </canvas>
                     <div class="output">
                       <img id="photo" alt="The screen capture will appear in this box.">
                     </div>
+                    </canvas>
 
                     {{-- Put a simple form in here with reg_no field and all other not null hiddenMode --}}
 
@@ -43,6 +43,7 @@
                       <input type="hidden" id="officer_id" name="officer_id" value="{{Auth::id()}}">
                       <input type="hidden" id="gps_lat" name="gps_lat">
                       <input type="hidden" id="gps_lon" name="gps_lon">
+                      <input type="hidden" id="front_image" name="front_image">
 
                       <div class="form-row">
                         <div class="form-group col-md-12">
@@ -154,6 +155,8 @@ getloc = navigator.geolocation.watchPosition(success);
 
     var data = canvas.toDataURL('image/png');
     photo.setAttribute('src', data);
+
+    document.forms[1].elements["front_image"].value = data;
   }
 
   // Capture a photo by fetching the current contents of the video
