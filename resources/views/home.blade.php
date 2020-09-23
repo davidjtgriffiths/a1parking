@@ -36,6 +36,38 @@
                     </div>
                     </canvas>
 
+                    <button id="frontbutton">Front</button>
+                    <button id="rearbutton">Rear</button>
+                    <button id="dashbutton">Dash</button>
+                    <button id="locationbutton">Location</button>
+
+                    <canvas id="frontcanvas">
+                    <div class="output">
+                      <img id="fphoto" alt="The screen capture will appear in this box.">
+                    </div>
+                    </canvas>
+
+                    <canvas id="rearcanvas">
+                    <div class="output">
+                      <img id="rphoto" alt="The screen capture will appear in this box.">
+                    </div>
+                    </canvas>
+
+                    <canvas id="dashcanvas">
+                    <div class="output">
+                      <img id="dphoto" alt="The screen capture will appear in this box.">
+                    </div>
+                    </canvas>
+
+                    <canvas id="locationcanvas">
+                    <div class="output">
+                      <img id="lphoto" alt="The screen capture will appear in this box.">
+                    </div>
+                    </canvas>
+
+
+
+
                     {{-- Put a simple form in here with reg_no field and all other not null hiddenMode --}}
 
                     <form action="{{ route('ticketissues.store') }}" method="post">
@@ -44,6 +76,9 @@
                       <input type="hidden" id="gps_lat" name="gps_lat">
                       <input type="hidden" id="gps_lon" name="gps_lon">
                       <input type="hidden" id="front_image" name="front_image">
+                      <input type="hidden" id="rear_image" name="rear_image">
+                      <input type="hidden" id="dash_image" name="dash_image">
+                      <input type="hidden" id="location_image" name="location_image">
 
                       <div class="form-row">
                         <div class="form-group col-md-12">
@@ -109,6 +144,21 @@ getloc = navigator.geolocation.watchPosition(success);
     photo = document.getElementById('photo');
     startbutton = document.getElementById('startbutton');
 
+    frontbutton = document.getElementById('frontbutton');
+    rearbutton = document.getElementById('rearbutton');
+    dashbutton = document.getElementById('dashbutton');
+    locationbutton = document.getElementById('locationbutton');
+
+    frontcanvas = document.getElementById('frontcanvas');
+    rearcanvas = document.getElementById('rearcanvas');
+    dashcanvas = document.getElementById('dashcanvas');
+    locationcanvas = document.getElementById('locationcanvas');
+
+    fphoto = document.getElementById('fphoto');
+    rphoto = document.getElementById('rphoto');
+    dphoto = document.getElementById('dphoto');
+    lphoto = document.getElementById('lphoto');
+
     navigator.mediaDevices.getUserMedia({video: true, audio: false})
     .then(function(stream) {
       video.srcObject = stream;
@@ -142,6 +192,28 @@ getloc = navigator.geolocation.watchPosition(success);
       ev.preventDefault();
     }, false);
 
+
+
+    frontbutton.addEventListener('click', function(ev){
+      usefront();
+      ev.preventDefault();
+    }, false);
+
+    rearbutton.addEventListener('click', function(ev){
+      userear();
+      ev.preventDefault();
+    }, false);
+
+    dashbutton.addEventListener('click', function(ev){
+      usedash();
+      ev.preventDefault();
+    }, false);
+
+    locationbutton.addEventListener('click', function(ev){
+      uselocation();
+      ev.preventDefault();
+    }, false);
+
     clearphoto();
   }
 
@@ -154,9 +226,10 @@ getloc = navigator.geolocation.watchPosition(success);
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     var data = canvas.toDataURL('image/png');
+
     photo.setAttribute('src', data);
 
-    document.forms[1].elements["front_image"].value = data;
+
   }
 
   // Capture a photo by fetching the current contents of the video
@@ -174,6 +247,66 @@ getloc = navigator.geolocation.watchPosition(success);
 
       var data = canvas.toDataURL('image/png');
       photo.setAttribute('src', data);
+    } else {
+      clearphoto();
+    }
+  }
+
+  function usefront() {
+    var context = frontcanvas.getContext('2d');
+    if (width && height) {
+      frontcanvas.width = width;
+      frontcanvas.height = height;
+      context.drawImage(canvas, 0, 0, width, height);
+
+      var data = frontcanvas.toDataURL('image/png');
+      document.forms[1].elements["front_image"].value = frontcanvas.toDataURL('image/jpg');
+      fphoto.setAttribute('src', data);
+    } else {
+      clearphoto();
+    }
+  }
+
+  function userear() {
+    var context = rearcanvas.getContext('2d');
+    if (width && height) {
+      rearcanvas.width = width;
+      rearcanvas.height = height;
+      context.drawImage(canvas, 0, 0, width, height);
+
+      var data = rearcanvas.toDataURL('image/png');
+      document.forms[1].elements["rear_image"].value = rearcanvas.toDataURL('image/jpg');
+      rphoto.setAttribute('src', data);
+    } else {
+      clearphoto();
+    }
+  }
+
+  function usedash() {
+    var context = dashcanvas.getContext('2d');
+    if (width && height) {
+      dashcanvas.width = width;
+      dashcanvas.height = height;
+      context.drawImage(canvas, 0, 0, width, height);
+
+      var data = dashcanvas.toDataURL('image/png');
+      document.forms[1].elements["dash_image"].value = dashcanvas.toDataURL('image/jpg');
+      dphoto.setAttribute('src', data);
+    } else {
+      clearphoto();
+    }
+  }
+
+  function uselocation() {
+    var context = locationcanvas.getContext('2d');
+    if (width && height) {
+      locationcanvas.width = width;
+      locationcanvas.height = height;
+      context.drawImage(canvas, 0, 0, width, height);
+
+      var data = locationcanvas.toDataURL('image/png');
+      document.forms[1].elements["location_image"].value = locationcanvas.toDataURL('image/jpg');
+      rphoto.setAttribute('src', data);
     } else {
       clearphoto();
     }
