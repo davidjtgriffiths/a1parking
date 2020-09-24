@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('New Ticket') }}</div>
+                {{-- <div class="card-header">{{ __('New Ticket') }}</div> --}}
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,58 +14,135 @@
                         </div>
                     @endif
 
-                    <div class="toast">
+                    {{-- <div class="toast">
                       <div class="toast-header">
                         Status
                       </div>
                       <div class="toast-body">
                           Ready for next ticket.
                       </div>
-                    </div>
+                    </div> --}}
 
                     {{-- OK here goes the image capture! --}}
 
-                    <div class="camera">
-                      <video id="video">Video stream not available.</video>
-                      <button id="startbutton">Take photo</button>
+                    <div class="row">
+
+                      <div class="col-xs-5">
+
+                        <div class="camera">
+                          <video id="video">Video stream not available.</video>
+                        </div>
+                      </div>
+
+                      <div class="col-xs-2">
+
+
+
+
+                      </div>
+                      <div class="col-xs-5" style="margin-left:auto; margin-right:0;">
+                        <canvas id="canvas"  style="outline: 1px dashed grey;">
+                          <div class="output">
+                            <img id="photo" alt="The screen capture will appear in this box.">
+                          </div>
+                        </canvas>
+
+                      </div>
                     </div>
 
-                    <canvas id="canvas">
-                    <div class="output">
-                      <img id="photo" alt="The screen capture will appear in this box.">
-                    </div>
-                    </canvas>
 
-                    <button id="frontbutton">Front</button>
-                    <button id="rearbutton">Rear</button>
-                    <button id="dashbutton">Dash</button>
-                    <button id="locationbutton">Location</button>
 
-                    <canvas id="frontcanvas">
+<div class="row">
+<div class="col-xs-12" style="margin-left:auto; margin-right:0;">
+                    <button id="startbutton">Take photo</button>
+</div>
+</div>
+                    <br>
+                    <p>Use photo for:</p>
+                    <br>
+
+
+
+<div class="row">
+
+<div class="col-xs-3 col text-center">
+  <button id="frontbutton">Front</button>
+</div>
+
+<div class="col-xs-3 col text-center">
+  <button id="rearbutton">Rear</button>
+</div>
+
+<div class="col-xs-3 col text-center">
+  <button id="dashbutton">Dash</button>
+</div>
+
+
+<div class="col-xs- col text-center3">
+  <button id="locationbutton">Location</button>
+</div>
+</div>
+<br>
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-5">
+
+                    <canvas id="frontcanvas"  style="outline: 1px dashed grey;">
                     <div class="output">
                       <img id="fphoto" alt="The screen capture will appear in this box.">
                     </div>
                     </canvas>
 
-                    <canvas id="rearcanvas">
+</div>
+                    <div class="col-xs-2">
+
+
+
+
+                    </div>
+
+  <div class="col-xs-5" style="margin-left:auto; margin-right:0;">
+
+
+                    <canvas id="rearcanvas"  style="outline: 1px dashed grey;">
                     <div class="output">
                       <img id="rphoto" alt="The screen capture will appear in this box.">
                     </div>
                     </canvas>
+</div>
+</div>
 
-                    <canvas id="dashcanvas">
+<div class="row">
+  <div class="col-xs-5">
+
+                    <canvas id="dashcanvas"  style="outline: 1px dashed grey;">
                     <div class="output">
                       <img id="dphoto" alt="The screen capture will appear in this box.">
                     </div>
                     </canvas>
+</div>
+                    <div class="col-xs-2">
 
-                    <canvas id="locationcanvas">
+
+
+
+                    </div>
+
+  <div class="col-xs-5" style="margin-left:auto; margin-right:0;">
+
+
+                    <canvas id="locationcanvas"  style="outline: 1px dashed grey;">
                     <div class="output">
                       <img id="lphoto" alt="The screen capture will appear in this box.">
                     </div>
                     </canvas>
 
-
+</div>
+</div>
 
 
                     {{-- Put a simple form in here with reg_no field and all other not null hiddenMode --}}
@@ -122,7 +199,7 @@ getloc = navigator.geolocation.watchPosition(success);
   // width to the value defined here, but the height will be
   // calculated based on the aspect ratio of the input stream.
 
-  var width = 320;    // We will scale the photo width to this
+  var width = 320 / 2.2;    // We will scale the photo width to this
   var height = 0;     // This will be computed based on the input stream
 
   // |streaming| indicates whether or not we're currently streaming
@@ -183,6 +260,18 @@ getloc = navigator.geolocation.watchPosition(success);
         video.setAttribute('height', height);
         canvas.setAttribute('width', width);
         canvas.setAttribute('height', height);
+
+        frontcanvas.setAttribute('width', width);
+        frontcanvas.setAttribute('height', height);
+
+        rearcanvas.setAttribute('width', width);
+        rearcanvas.setAttribute('height', height);
+
+        dashcanvas.setAttribute('width', width);
+        dashcanvas.setAttribute('height', height);
+
+        locationcanvas.setAttribute('width', width);
+        locationcanvas.setAttribute('height', height);
         streaming = true;
       }
     }, false);
